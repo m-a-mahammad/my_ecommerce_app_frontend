@@ -22,7 +22,7 @@ const App = () => {
       <div className="flex min-h-screen">
         <main className="flex-1 p-4">
           <Routes>
-            <Route path="https://my-ecommerce-app-frontend.onrender.com/" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/product/:slug" element={<ProductDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
