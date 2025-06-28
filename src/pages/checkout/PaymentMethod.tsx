@@ -28,8 +28,8 @@ const PaymentMethods = () => {
     setIsLoading(true);
 
     const integrationIdMap: Record<string, number> = {
-      card: 5165991,
-      wallet: 5166449,
+      card: import.meta.env.VITE_CARD_INTEGRATION,
+      wallet: import.meta.env.VITE_WALLET_INTEGRATION,
     };
 
     const integration_id = integrationIdMap[selected];
@@ -77,8 +77,10 @@ const PaymentMethods = () => {
         },
         expiration: 3600,
         special_reference: `ORD_${Date.now()}`,
-        redirection_url: "http://localhost:5173/",
-        notification_url: "http://localhost:2002/api/paymob/webhook",
+        redirection_url: `${import.meta.env.FRONTEND_API_URL}`,
+        notification_url: `${
+          import.meta.env.FRONTEND_API_URL
+        }/api/paymob/webhook`,
       };
 
       const { data } = await axios.post(
@@ -86,9 +88,9 @@ const PaymentMethods = () => {
         payload
       );
       console.log("🎯 RESPONSE:", data);
-
       // const orderId = data.payment_keys?.[0]?.order_id;
       if (!data || !Array.isArray(data.payment_keys) || !data.payment_keys[0]) {
+        alert(`💥 Paymob raw response:, ${JSON.stringify(data, null, 2)}`);
         alert("فشل استلام بيانات الدفع من Paymob");
         setIsLoading(false);
         return;
