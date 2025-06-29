@@ -1,7 +1,14 @@
 // Navbar.tsx
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { FiLogIn, FiLogOut, FiUser, FiHeart, FiShoppingCart } from "react-icons/fi"; // أيقونات
+import {
+  FiUserPlus,
+  FiLogIn,
+  FiLogOut,
+  FiUser,
+  FiHeart,
+  FiShoppingCart,
+} from "react-icons/fi"; // أيقونات
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -56,13 +63,22 @@ const Navbar = () => {
             </button>
           </>
         ) : (
-          <Link
-            to="/login"
-            title="تسجيل الدخول"
-            className="hover:text-blue-600"
-          >
-            <FiLogIn size={22} />
-          </Link>
+          <>
+            <Link
+              to="/register"
+              title="إنشاء حساب جديد"
+              className="hover:text-green-600"
+            >
+              <FiUserPlus size={22} />
+            </Link>
+            <Link
+              to="/login"
+              title="تسجيل الدخول"
+              className="hover:text-blue-600"
+            >
+              <FiLogIn size={22} />
+            </Link>
+          </>
         )}
       </div>
     </nav>
