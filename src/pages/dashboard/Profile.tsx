@@ -1,5 +1,6 @@
 // pages/dashboard/Profile.jsx
 
+import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useState } from "react";
 
@@ -65,6 +66,23 @@ const Profile = () => {
           {loading ? "جارٍ الحفظ..." : "حفظ التغييرات"}
         </button>
       </form>
+
+      {user?.role === "admin" && (
+        <div className="mt-6 space-y-2">
+          <Link
+            to="/api/admin/products"
+            className="block text-center bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700"
+          >
+            إدارة المنتجات
+          </Link>
+          <Link
+            to="/api/admin/users"
+            className="block text-center bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700"
+          >
+            إدارة المستخدمين
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
