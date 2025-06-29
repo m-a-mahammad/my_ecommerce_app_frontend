@@ -23,8 +23,7 @@ const Navbar = () => {
 
       localStorage.removeItem("user");
       await logout();
-      navigate("/login");
-      console.log("المستخدم الحالي:", user);
+      navigate("/");
     } catch (err) {
       console.error("فشل في تسجيل الخروج:", err);
     }
