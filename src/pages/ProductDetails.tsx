@@ -103,7 +103,7 @@ const ProductDetails = () => {
               onClick={handleMobileWalletCheckout}
               className="bg-blue-600 text-white w-full justify-center py-3 mb-8 rounded-lg text-lg hover:bg-blue-700 transition cursor-pointer"
             >
-              إتمام الدفع عبر المحفظة الإلكترونية
+              إتمام الدفع عبر المحفظة الإلكترونية 📱
             </button>
           </div>
         </CardContent>
