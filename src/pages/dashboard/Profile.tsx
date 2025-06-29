@@ -70,13 +70,13 @@ const Profile = () => {
       {user?.role === "admin" && (
         <div className="mt-6 space-y-2">
           <Link
-            to="/api/admin/products"
+            to="/dashboard/admin/products"
             className="block text-center bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700"
           >
             إدارة المنتجات
           </Link>
           <Link
-            to="/api/admin/users"
+            to="/dashboard/admin/users"
             className="block text-center bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700"
           >
             إدارة المستخدمين
