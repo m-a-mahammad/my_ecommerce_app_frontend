@@ -30,7 +30,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex w-full items-center justify-between p-4 bg-gray-100 border-b">
+    <nav className="flex w-screen items-center justify-between p-4 bg-gray-100 border-b">
       <Link to="/" className="text-xl font-bold">
         المتجر
       </Link>
