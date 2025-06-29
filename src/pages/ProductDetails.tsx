@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useCart } from "@/hooks/useCart";
 
 interface Product {
   _id: string;
@@ -18,6 +19,7 @@ interface Product {
 const ProductDetails = () => {
   const { slug } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
+  const { cartItems, addToCart, removeFromCart } = useCart();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,23 +32,7 @@ const ProductDetails = () => {
       .finally(() => setLoading(false));
   }, [slug]);
 
-  const handleMobileWalletCheckout = async () => {
-    try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/payment/init-wallet`,
-        {
-          amount: 250, // المبلغ بالجنيه أو من السلة
-          phone: "010xxxxxxxx", // رقم المستخدم للمحفظة
-        },
-        { withCredentials: true }
-      );
-
-      // إعادة التوجيه لصفحة الدفع
-      window.location.href = data.redirect_url;
-    } catch (err) {
-      console.error("❌ فشل في إنشاء الدفع", err);
-    }
-  };
+  const isInCart = (id: string) => cartItems.some((item) => item._id === id);
 
   if (loading) {
     return (
@@ -68,9 +54,7 @@ const ProductDetails = () => {
     <div className="max-w-7xl mx-auto mt-10 px-4 text-right" dir="rtl">
       <Card>
         <CardHeader>
-          <CardTitle className="text-3xl font-bold">
-            {product.name}
-          </CardTitle>
+          <CardTitle className="text-3xl font-bold">{product.name}</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <img
@@ -100,10 +84,18 @@ const ProductDetails = () => {
               </p>
             </div>
             <button
-              onClick={handleMobileWalletCheckout}
-              className="bg-blue-600 text-white w-full justify-center py-3 mb-8 rounded-lg text-lg hover:bg-blue-700 transition cursor-pointer"
+              onClick={() =>
+                isInCart(product._id)
+                  ? removeFromCart(product._id)
+                  : addToCart({ ...product, quantity: 1, slug: slug! })
+              }
+              className={`w-full justify-center py-3 mt-8 md:mt-0 mb-4 rounded-lg text-lg transition cursor-pointer" ${
+                isInCart(product._id)
+                  ? "bg-red-600 hover:bg-red-700 text-white"
+                  : "bg-green-600 hover:bg-green-700 text-white"
+              }`}
             >
-              إتمام الدفع عبر المحفظة الإلكترونية 📱
+              {isInCart(product._id) ? "❌ إزالة من السلة" : "🛒 أضف للسلة"}
             </button>
           </div>
         </CardContent>
