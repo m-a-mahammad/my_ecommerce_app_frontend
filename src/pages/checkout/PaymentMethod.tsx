@@ -95,9 +95,6 @@ const PaymentMethods = () => {
         setIsLoading(false);
         return;
       }
-      const paymentToken = data.payment_keys?.[0]?.key;
-      const iframeId = data.payment_keys?.[0]?.iframe_id;
-      const redirectURL = data.payment_keys?.[0]?.redirection_url;
 
       console.log("📦 Full response from Paymob:", data);
       console.log("📎 payment_keys[0]:", data.payment_keys?.[0]);
@@ -108,15 +105,16 @@ const PaymentMethods = () => {
         console.log("تفاصيل المعاملة:", transactionDetails);
       } */
 
-      if (iframeId && paymentToken) {
-        const iframeURL = `/payment-frame/${paymentToken}/${iframeId}`;
-        window.location.href = iframeURL;
-      } else if (redirectURL && paymentToken) {
-        const iframeURL = `/payment-frame/${paymentToken}/${iframeId}`;
-        window.location.href = iframeURL;
-      } else {
-        alert("لم يتم إرجاع بيانات iframe أو redirect URL. تأكد من التكوين.");
+      if (!data.client_secret) {
+        alert("لم يتم استلام client_secret من Paymob");
+        setIsLoading(false);
+        return;
       }
+
+      const checkoutURL = `https://accept.paymob.com/unifiedcheckout/?publicKey=${
+        import.meta.env.VITE_PUBLIC_KEY
+      }&clientSecret=${data.client_secret}`;
+      window.location.href = checkoutURL;
     } catch (error) {
       console.error("فشل الإجراء:", error);
       alert("حدث خطأ أثناء معالجة الدفع");
