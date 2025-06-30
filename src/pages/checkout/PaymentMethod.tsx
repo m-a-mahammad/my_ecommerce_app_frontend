@@ -28,11 +28,16 @@ const PaymentMethods = () => {
     setIsLoading(true);
 
     const integrationIdMap: Record<string, number> = {
-      card: import.meta.env.VITE_CARD_INTEGRATION,
-      wallet: import.meta.env.VITE_WALLET_INTEGRATION,
+      card: Number(import.meta.env.VITE_CARD_INTEGRATION),
+      wallet: Number(import.meta.env.VITE_WALLET_INTEGRATION),
     };
 
-    const integration_id = integrationIdMap[selected];
+    const integration_id = Number(integrationIdMap[selected]);
+    if (isNaN(integration_id)) {
+      alert("معرّف التكامل غير صالح");
+      setIsLoading(false);
+      return;
+    }
 
     if (!integration_id) {
       alert("الدفع عند الاستلام لا يحتاج إجراء إلكتروني.");
@@ -43,7 +48,7 @@ const PaymentMethods = () => {
     try {
       const payload = {
         amount: 150000,
-        payment_methods: [Number(integration_id)],
+        payment_methods: [integration_id],
         currency: "EGP",
         items: [
           {
