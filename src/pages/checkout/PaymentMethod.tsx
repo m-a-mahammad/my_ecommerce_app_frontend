@@ -41,6 +41,10 @@ const PaymentMethods = () => {
       return;
     }
 
+    if (integration_id) {
+      alert(typeof integration_id)
+    }
+
     if (!integration_id) {
       alert("الدفع عند الاستلام لا يحتاج إجراء إلكتروني.");
       setIsLoading(false);
