@@ -1,9 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { useAuth } from "@/hooks/useAuth";
 
 const PaymentMethods = () => {
   const [selected, setSelected] = useState("card");
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelected(e.target.value);
@@ -45,9 +47,15 @@ const PaymentMethods = () => {
       return;
     }
 
+    if (!user || !user._id) {
+      alert("يبدو إنك مش مسجل دخول، برجاء تسجيل الدخول أولًا");
+      return;
+    }
+
     try {
       const payload = {
         amount: 150000,
+        userId: user._id,
         payment_methods: [integration_id],
         currency: "EGP",
         items: [
