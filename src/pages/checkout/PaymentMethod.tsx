@@ -90,9 +90,9 @@ const PaymentMethods = () => {
         },
         expiration: 3600,
         special_reference: `ORD_${Date.now()}`,
-        redirection_url: `${import.meta.env.FRONTEND_API_URL}`,
+        redirection_url: `${import.meta.env.VITE_FRONTEND_API_URL}`,
         notification_url: `${
-          import.meta.env.FRONTEND_API_URL
+          import.meta.env.VITE_FRONTEND_API_URL
         }/api/paymob/webhook`,
       };
 
