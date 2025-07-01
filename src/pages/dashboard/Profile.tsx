@@ -3,6 +3,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useState } from "react";
+import axios from "axios";
 
 const Profile = () => {
   const { user, updateProfile } = useAuth();
@@ -36,14 +37,11 @@ const Profile = () => {
     try {
       setDeleting(true);
 
-      await fetch("/api/me", {
-        method: "DELETE",
-
-        credentials: "include",
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/me`, {
+        withCredentials: true,
       });
 
       setImage(null);
-
       setPreview("");
     } catch (err) {
       console.error("فشل في حذف الصورة", err);
