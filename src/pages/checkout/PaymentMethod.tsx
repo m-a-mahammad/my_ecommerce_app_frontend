@@ -133,7 +133,7 @@ const PaymentMethods = () => {
       }
 
       const checkoutURL = `https://accept.paymob.com/unifiedcheckout/?publicKey=${
-        import.meta.env.PAYMOB_PUBLIC_KEY
+        import.meta.env.VITE_PAYMOB_PUBLIC_KEY
       }&clientSecret=${data.client_secret}`;
       window.location.href = checkoutURL;
     } catch (error) {
