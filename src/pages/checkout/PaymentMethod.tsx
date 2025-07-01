@@ -11,20 +11,6 @@ const PaymentMethods = () => {
     setSelected(e.target.value);
   };
 
-  /* const getTransactionDetails = async (transactionId: string) => {
-    try {
-      const response = await axios.get(
-        `${
-          import.meta.env.VITE_API_URL
-        }/api/payment/transaction/${transactionId}`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching transaction:", error);
-      throw error;
-    }
-  }; */
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -35,18 +21,15 @@ const PaymentMethods = () => {
     };
 
     const integration_id = Number(integrationIdMap[selected]);
-    if (isNaN(integration_id)) {
-      alert("معرّف التكامل غير صالح");
+
+    if (!integration_id) {
+      alert("الدفع عند الاستلام لا يحتاج إجراء إلكتروني.");
       setIsLoading(false);
       return;
     }
 
-    if (integration_id) {
-      alert(typeof integration_id);
-    }
-
-    if (!integration_id) {
-      alert("الدفع عند الاستلام لا يحتاج إجراء إلكتروني.");
+    if (isNaN(integration_id)) {
+      alert("معرّف التكامل غير صالح");
       setIsLoading(false);
       return;
     }
@@ -105,16 +88,6 @@ const PaymentMethods = () => {
         payload
       );
       console.log("🎯 RESPONSE:", data);
-      // const orderId = data.payment_keys?.[0]?.order_id;
-
-      console.log("📦 Full response from Paymob:", data);
-      console.log("📎 payment_keys[0]:", data.payment_keys?.[0]);
-      console.log("🧾 order_id:", data.payment_keys?.[0]?.order_id);
-
-      /* if (orderId) {
-        const transactionDetails = await getTransactionDetails(orderId);
-        console.log("تفاصيل المعاملة:", transactionDetails);
-      } */
 
       if (!data.client_secret) {
         alert("لم يتم استلام client_secret من Paymob");
@@ -125,7 +98,6 @@ const PaymentMethods = () => {
       const checkoutURL = `https://accept.paymob.com/unifiedcheckout/?publicKey=${
         import.meta.env.VITE_PAYMOB_PUBLIC_KEY
       }&clientSecret=${data.client_secret}`;
-      console.log("🔗 Redirecting to:", checkoutURL);
       window.location.href = checkoutURL;
     } catch (error) {
       console.error("فشل الإجراء:", error);
