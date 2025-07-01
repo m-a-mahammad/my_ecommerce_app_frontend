@@ -106,11 +106,17 @@ const Profile = () => {
             <button
               type="button"
               onClick={handleImageDelete}
-              className="flex px-4 py-2 bg-red-200 text-sm rounded hover:bg-red-300 transition disabled:opacity-50 disabled:cursor-not-allowed !cursor-no-drop"
               disabled={
+                deleting ||
                 preview ===
                   `${import.meta.env.VITE_FRONTEND_API_URL}/avatars/luffy.png`
               }
+              className={`flex px-4 py-2 bg-red-200 text-sm rounded hover:bg-red-300 transition disabled:opacity-50 ${
+                preview ===
+                `${import.meta.env.VITE_FRONTEND_API_URL}/avatars/luffy.png`
+                  ? "disabled:cursor-not-allowed !cursor-no-drop"
+                  : ""
+              }`}
             >
               {deleting ? "جارٍ الحذف..." : "حذف الصورة"}
             </button>
