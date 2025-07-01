@@ -8,6 +8,9 @@ const PaymentMethods = () => {
   const { user } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!import.meta.env.VITE_PAYMOB_PUBLIC_KEY) {
+      console.warn("⚠️ المتغير VITE_PAYMOB_PUBLIC_KEY مش موجود في env");
+    }
     setSelected(e.target.value);
   };
 
@@ -42,7 +45,7 @@ const PaymentMethods = () => {
     }
 
     if (integration_id) {
-      alert(typeof integration_id)
+      alert(typeof integration_id);
     }
 
     if (!integration_id) {
