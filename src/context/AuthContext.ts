@@ -6,7 +6,10 @@ export type User = {
   name: string;
   email: string;
   role: "user" | "admin";
-  avatar?: { url: string };
+  image?: {
+    public_id?: string;
+    url: string;
+  };
 };
 
 export type AuthContextType = {
