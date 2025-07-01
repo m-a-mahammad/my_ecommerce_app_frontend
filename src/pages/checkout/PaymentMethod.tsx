@@ -106,12 +106,6 @@ const PaymentMethods = () => {
       );
       console.log("🎯 RESPONSE:", data);
       // const orderId = data.payment_keys?.[0]?.order_id;
-      if (!data || !Array.isArray(data.payment_keys) || !data.payment_keys[0]) {
-        alert(`💥 Paymob raw response:, ${JSON.stringify(data, null, 2)}`);
-        alert("فشل استلام بيانات الدفع من Paymob");
-        setIsLoading(false);
-        return;
-      }
 
       console.log("📦 Full response from Paymob:", data);
       console.log("📎 payment_keys[0]:", data.payment_keys?.[0]);
