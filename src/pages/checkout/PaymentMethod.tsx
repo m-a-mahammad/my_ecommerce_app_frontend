@@ -51,10 +51,6 @@ const PaymentMethods = () => {
       return;
     }
 
-    if (!import.meta.env.VITE_PAYMOB_PUBLIC_KEY) {
-      console.error("⚠️ المتغير VITE_PAYMOB_PUBLIC_KEY مش موجود في env");
-    }
-
     if (!user || !user._id) {
       alert("يبدو إنك مش مسجل دخول، برجاء تسجيل الدخول أولًا");
       return;
@@ -135,6 +131,7 @@ const PaymentMethods = () => {
       const checkoutURL = `https://accept.paymob.com/unifiedcheckout/?publicKey=${
         import.meta.env.VITE_PAYMOB_PUBLIC_KEY
       }&clientSecret=${data.client_secret}`;
+      console.log("🔗 Redirecting to:", checkoutURL);
       window.location.href = checkoutURL;
     } catch (error) {
       console.error("فشل الإجراء:", error);
