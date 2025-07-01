@@ -37,7 +37,7 @@ const Profile = () => {
     try {
       setDeleting(true);
 
-      await axios.delete(`${import.meta.env.VITE_API_URL}/api/me`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
         withCredentials: true,
       });
 
