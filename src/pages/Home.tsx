@@ -18,7 +18,6 @@ interface Product {
 interface WishlistItem {
   product: {
     _id: string;
-    // ممكن تضيف خصائص تانية حسب الحاجة
   };
 }
 
