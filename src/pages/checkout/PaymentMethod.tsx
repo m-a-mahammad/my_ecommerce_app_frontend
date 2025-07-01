@@ -42,13 +42,17 @@ const PaymentMethods = () => {
     }
 
     if (integration_id) {
-      alert(typeof integration_id)
+      alert(typeof integration_id);
     }
 
     if (!integration_id) {
       alert("الدفع عند الاستلام لا يحتاج إجراء إلكتروني.");
       setIsLoading(false);
       return;
+    }
+
+    if (!import.meta.env.VITE_PAYMOB_PUBLIC_KEY) {
+      console.error("⚠️ المتغير VITE_PAYMOB_PUBLIC_KEY مش موجود في env");
     }
 
     if (!user || !user._id) {
