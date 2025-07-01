@@ -28,9 +28,19 @@ const Profile = () => {
     const formData = new FormData();
     formData.append("name", name);
     if (image) formData.append("image", image);
-
-    await updateProfile(formData);
-    setLoading(false);
+    try {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/auth/me`, formData, {
+        withCredentials: true,
+      });
+      await updateProfile(formData);
+      setLoading(false);
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response?.data?.error) {
+        alert(err.response.data.error); // أو toast
+      } else {
+        console.error("خطأ غير متوقع", err);
+      }
+    }
   };
 
   const handleImageDelete = async () => {
