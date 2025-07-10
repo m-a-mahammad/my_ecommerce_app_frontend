@@ -24,6 +24,7 @@ const Navbar = () => {
       localStorage.removeItem("user");
       await logout();
       navigate("/");
+      window.location.reload();
     } catch (err) {
       console.error("فشل في تسجيل الخروج:", err);
     }
