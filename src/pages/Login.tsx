@@ -19,6 +19,7 @@ const Login = () => {
       console.log("تم تسجيل الدخول:", user);
       localStorage.setItem("user", JSON.stringify(user)); // 🟢 الخطوة الأساسية
       navigate("/");
+      window.location.reload();
     } catch (err) {
       const error = err as AxiosError<{ error: string }>;
       setError(error.response?.data?.error || "فشل في تسجيل الدخول");
