@@ -24,7 +24,7 @@ const ProtectedRoute = ({ allowedRoles }: Props) => {
     return <Navigate to="/" replace />;
   }
 
-  console.log("✅ المستخدم:", user);
+  // console.log("✅ المستخدم:", user);
 
   // ✅ وصل للصفحة عادي
   return <Outlet />;
