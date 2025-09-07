@@ -85,8 +85,7 @@ const PaymentMethods = () => {
 
       const { data } = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/payment/create-payment`,
-        payload,
-        { withCredentials: true }
+        payload
       );
       console.log("🎯 RESPONSE:", data);
 
