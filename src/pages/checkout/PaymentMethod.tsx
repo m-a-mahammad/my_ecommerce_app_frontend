@@ -83,7 +83,11 @@ const PaymentMethods = () => {
         }/api/paymob/webhook`,
       };
 
-      const { data } = await axios.post(
+      const apiClient = axios.create({
+        withCredentials: true, // This is the crucial line
+      });
+
+      const { data } = await apiClient.post(
         `${import.meta.env.VITE_API_URL}/api/payment/create-payment`,
         payload
       );
